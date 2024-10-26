@@ -2,15 +2,24 @@ package org.e_commerce_checkout_strategy_design_patterns;
 
 public class Checkout {
 
-    public void checkoutProcessing(double amount,PaymentMethod paymentMethod){
-        if(paymentMethod == PaymentMethod.PAYPAL)
-            System.out.println("Processing payment of paypal for amount : "+amount);
+    private PaymentMethodProcessor paymentMethodProcessor;
 
-        else if(paymentMethod == PaymentMethod.VISA)
-            System.out.println("Processing payment of visa for amount : "+amount);
+    // constructor
+    public Checkout(PaymentMethodProcessor paymentMethodProcessor) {
+        this.paymentMethodProcessor = paymentMethodProcessor;
+    }
 
-        else if(paymentMethod == PaymentMethod.BANK_TRANSFER)
-            System.out.println("Processing payment of bank transfer for amount : "+amount);
+    // setter and getter methods
+    public PaymentMethodProcessor getPaymentMethodProcessor() {
+        return paymentMethodProcessor;
+    }
 
+    public void setPaymentMethodProcessor(PaymentMethodProcessor paymentMethodProcessor) {
+        this.paymentMethodProcessor = paymentMethodProcessor;
+    }
+
+    // helper method
+    public void checkoutProcessing(double amount){
+        paymentMethodProcessor.checkoutProcessing(amount);
     }
 }

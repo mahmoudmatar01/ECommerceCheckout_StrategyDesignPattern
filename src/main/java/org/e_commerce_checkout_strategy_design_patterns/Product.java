@@ -4,11 +4,13 @@ public class Product {
 
     private String productName;
     private double productPrice;
+    private MembershipPriceCalculator membershipPriceCalculator;
 
     // all arguments constructor
-    public Product(String productName, double productPrice) {
+    public Product(String productName, double productPrice, MembershipPriceCalculator membershipPriceCalculator) {
         this.productName = productName;
         this.productPrice = productPrice;
+        this.membershipPriceCalculator = membershipPriceCalculator;
     }
 
     // setter and getter methods
@@ -20,6 +22,14 @@ public class Product {
         this.productName = productName;
     }
 
+    public MembershipPriceCalculator getMembershipPriceCalculator() {
+        return membershipPriceCalculator;
+    }
+
+    public void setMembershipPriceCalculator(MembershipPriceCalculator membershipPriceCalculator) {
+        this.membershipPriceCalculator = membershipPriceCalculator;
+    }
+
     public double getProductPrice() {
         return productPrice;
     }
@@ -29,13 +39,7 @@ public class Product {
     }
 
     // helper method
-    public double calculateProductPrice(MembershipType membershipType) {
-        if(membershipType==MembershipType.REGULAR)
-            return productPrice;
-        else if(membershipType==MembershipType.GOLD)
-            return productPrice*0.9;  // 10% discount
-        else if(membershipType==MembershipType.PREMIUM)
-            return productPrice*0.7;  // 30% discount
-        return productPrice;
+    public double calculateProductPrice() {
+        return membershipPriceCalculator.calculateProductPrice(productPrice);
     }
 }
